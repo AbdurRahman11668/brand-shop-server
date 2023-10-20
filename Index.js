@@ -48,7 +48,7 @@ async function run() {
       const result = await technologyCollection.insertOne(product);
       res.send(result);
     });
-    app.put("/apple/products/:id", async (req, res) => {
+    app.put("/products/:id", async (req, res) => {
       const id = req.params.id;
       const filter = { _id: new ObjectId(id) };
       const options = { upsart: true };
@@ -67,7 +67,7 @@ async function run() {
       const result = await technologyCollection.updateOne(filter, products, options);
       res.send(result);
     });
-    
+
 
     app.get("/cart", async (req, res) => {
       const cursor = cartCollection.find();
@@ -79,6 +79,13 @@ async function run() {
       const newProducts = req.body;
       console.log(newProducts);
       const result = await cartCollection.insertOne(newProducts);
+      res.send(result);
+    });
+
+    app.delete("/cart/:id", async (req, res) => {
+      const id = req.params.id;
+      const query = { _id: new ObjectId(id) };
+      const result = await cartCollection.deleteOne(query);
       res.send(result);
     });
 
