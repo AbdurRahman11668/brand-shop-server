@@ -28,7 +28,7 @@ const client = new MongoClient(uri, {
 async function run() {
   try {
     // Connect the client to the server	(optional starting in v4.7)
-    await client.connect();
+    // await client.connect();
 
     const technologyCollection = client.db("technoDB").collection("products");
     const cartCollection = client.db("technoDB").collection("cart");
@@ -42,6 +42,15 @@ async function run() {
       const products = await technologyCollection.find();
       res.send(products);
     });
+
+    app.get("/products/:id", async (req, res) => {
+      const id = req.params.id;
+      const query = { _id: new ObjectId(id) };
+      const result = await technologyCollection.findOne(query);
+      res.send(result);
+    });
+
+
     app.post("/products", async (req, res) => {
       const product = req.body;
       console.log(product);
