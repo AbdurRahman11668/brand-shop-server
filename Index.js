@@ -106,27 +106,14 @@ async function run() {
   } finally {
     // Ensures that the client will close when you finish/error
 
-    await client.close();
+    // await client.close();
   }
 }
 run().catch(console.log);
 
-
-app.get("/", (req, res) => {
-    const htmlResponse = `
-    <html>
-      <head>
-        <title>Inline CSS Example</title>
-      </head>
-      <body>
-        <div style="color: red; font-size: 50px; font-weight: 600; text-align: center; margin-top: 250px">
-        Techno & Electro server is running.....
-        </div>
-      </body>
-    </html>
-  `;
-    res.send(htmlResponse);
-  });
+app.get('/', (req, res) => {
+  res.send('Techno & Electro server is running.....')
+})
   
   app.listen(port, () => {
     console.log(`Technology Server is running on port: ${port}`);
